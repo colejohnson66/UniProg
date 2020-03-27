@@ -1,3 +1,4 @@
 (sym_lib_table
   (lib (name UniProg)(type Legacy)(uri C:/Users/coleh/Desktop/UniProg/UniProg.lib)(options "")(descr ""))
+  (lib (name OctalPinDriver-rescue)(type Legacy)(uri ${KIPRJMOD}/OctalPinDriver-rescue.lib)(options "")(descr ""))
 )
