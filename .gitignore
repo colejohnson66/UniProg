@@ -1,0 +1,4 @@
+upro/build/*
+!upro/build/configure.h
+upro/out
+upro/.vs
