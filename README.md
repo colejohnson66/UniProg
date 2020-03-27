@@ -13,7 +13,7 @@ UniProg runs from a single +48&nbsp;V power supply.
 It then buck converts to multiple rails: -45&nbsp;V, +45&nbsp;, -5&nbsp;V, +5&nbsp;V, -2.5&nbsp;V, and +2.5&nbsp;V.
 These rails provide all of the power for UniProg.
 
-## Mainboard operation
+## Operation
 
 UniProg runs on a WDC85C816 16-bit microprocessor at 10&nbsp;MHz.
 While the "85C816" supports a 24-bit address space, the upper 8-bits are all set to `0` (this may change).
@@ -55,7 +55,7 @@ Each pin driver board has 256 bytes of address space allocated to it at the addr
 | `1111`        | Unused |
 
 As an example, if `x` is `0x00D`, `y` is `0x2`, and `z` is `0xB`, this selects the 13th (zero-based) pin board (`0x00D`), the ADC input (`0x2`), and pin 5's (zero-based) MSB (if `z` was `0xA`, this would select the LSB of pin 5).
-Also, if `x` is `0x00D`, `y` is `0x1`, and `z` is `0x3`, this selects the 13-th (zero-based) pin board, the MUXes (`0x1`), and pin 1's (zero-based) VPP (`0x3` [`0x0011`]).
+Also, if `x` is `0x00D`, `y` is `0x1`, and `z` is `0x3`, this selects the 13-th (zero-based) pin board, the MUXes (`0x1`), and pin 1's (zero-based) VPP (`0x3` [`0b0011`]).
 
 ## Pin Driver Board Operation
 
