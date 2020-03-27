@@ -15,7 +15,7 @@ These rails provide all of the power for UniProg.
 
 ## Operation
 
-UniProg runs on a WDC65C816 16-bit microprocessor at 10&nbsp;MHz.
+UniProg runs on a WDC65C816S 16-bit microprocessor at 10&nbsp;MHz.
 While the "65C816" supports a 24-bit address space, the upper 8-bits are all set to `0` (this may change).
 As for why a WDC65C02S wasn't used: the 65C02 has 8-bit registers while the 65C816 has 16-bit registers.
 In addition, on the 65C02, the stack is fixed at a 256-byte region located at `0x01xx`; On the 65C816, the stack can be relocated.
