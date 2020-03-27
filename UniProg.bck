@@ -1,3 +1,23 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP 74HC245
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT245.pdf
+$ENDCMP
+#
+$CMP 74HC573
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT573.pdf
+$ENDCMP
+#
+$CMP DAC7614U
+F http://www.ti.com/lit/ds/symlink/dac7614.pdf
+$ENDCMP
+#
+$CMP OPA454
+F http://www.ti.com/lit/ds/symlink/opa454.pdf
+$ENDCMP
+#
+$CMP W65C816S
+F https://www.westerndesigncenter.com/wdc/documentation/w65c816s.pdf
+$ENDCMP
+#
 #End Doc Library
