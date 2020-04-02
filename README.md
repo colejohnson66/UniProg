@@ -33,7 +33,7 @@ Each pin driver board contains eight individually addressable pin drivers, two 8
 #### DAC / Op-Amp
 
 The DACs are powered from plus and minus 5 volts with reference voltages at plus and minus 2.5 volts.
-These DACs output a value from -2.048&nbsp;V and +2.048&nbsp;V with milivolt resolution.
+These DACs output a value from -2.048&nbsp;V and +2.048&nbsp;V with millivolt resolution.
 The outputs are run through op-amps with a gain of 22 to boost the output up to anywhere from -45&nbsp;V and +45&nbsp;V with 22&nbsp;mV resolution.
 The output of the op-amps are then routed to the VPP MOSFET.
 
