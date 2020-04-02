@@ -1,11 +1,11 @@
 # UniProg
 
 UniProg is a true DAC-per-pin universal programmer supporting voltages anywhere from -45&nbsp;V to +45&nbsp;V at roughly 22&nbsp;mV (0.022&nbsp;V) resolution.
-It is currently a work-in-progress, and it may never be completed.
+It is currently a **_work-in-progress_**, and it may never be completed.
 
 ## Cost
 
-While the BOM cost is currently unknown, it is estimated to total over US$500.
+While the BOM cost is currently unknown, it is estimated to total over US\$500.
 
 ## Power Supply
 
@@ -15,51 +15,16 @@ These rails provide all of the power for UniProg.
 
 ## Operation
 
-UniProg runs on a WDC65C816S 16-bit microprocessor at 10&nbsp;MHz.
-While the "65C816" supports a 24-bit address space, the upper 8-bits are all set to `0` (this may change).
-As for why a WDC65C02S wasn't used: the 65C02 has 8-bit registers while the 65C816 has 16-bit registers.
-In addition, on the 65C02, the stack is fixed at a 256-byte region located at `0x01xx`; On the 65C816, the stack can be relocated.
+UniProg runs on an [Adafruit Grand Central M4 Express](https://www.adafruit.com/product/4064) which features an ATSAMD51P20A ARM processor running at 120&nbsp;MHz.
+The "Grand Central" interfaces with the rest of the motherboard through a 16-bit data bus connected on pins 22 through 37.
+Other pins select what the motherboard should do; Such as setting a DAC's value, reading an ADC's value, etc.
 
-### Memory Map
-
-UniProg reserves 16&nbsp;KiB for RAM, 16&nbsp;KiB for MMIO, and 32&nbsp;KiB for the ROM.
-
-| Binary Address                         | Size | Purpose |
-| -------------------------------------- | ---- | ----- |
-| `0000 0000 00xx xxxx xxxx xxxx`        |  16k | RAM |
-| `0000 0000 01xx xxxx yyyy zzzz`        |  16k | Pin Driver Board MMIO (see below) |
-| `0000 0000 1xxx xxxx xxxx xxxx`        |  32k | ROM |
-| `0000 0001 0000 0000 0000 0000` and up |      | Unused |
-
-#### Pin Driver Board MMIO
-
-Each pin driver board has 256 bytes of address space allocated to it at the address `0000 01xx xxxx yyyy zzzz` (where `x` is the pin driver board, `y` is the I/O bank selector, and `z` selects the pin).
-
-| `y` bit value | Value |
-| ------------- | ----- |
-| `0000`        | DAC value (16-bits each) |
-| `0001`        | MUX value (8-bits each; LSB selects VPP, MSB selects GND) |
-| `0010`        | ADC value (16-bits each) |
-| `0011`        | Unused |
-| `0100`        | Unused |
-| `0101`        | Unused |
-| `0110`        | Unused |
-| `0111`        | Unused |
-| `1000`        | Unused |
-| `1001`        | Unused |
-| `1010`        | Unused |
-| `1011`        | Unused |
-| `1100`        | Unused |
-| `1101`        | Unused |
-| `1110`        | Unused |
-| `1111`        | Unused |
-
-As an example, if `x` is `0x00D`, `y` is `0x2`, and `z` is `0xB`, this selects the 13th (zero-based) pin board (`0x00D`), the ADC input (`0x2`), and pin 5's (zero-based) MSB (if `z` was `0xA`, this would select the LSB of pin 5).
-Also, if `x` is `0x00D`, `y` is `0x1`, and `z` is `0x3`, this selects the 13-th (zero-based) pin board, the MUXes (`0x1`), and pin 1's (zero-based) VPP (`0x3` [`0b0011`]).
+In addition, there are a few pins used for interrupts.
+One of which is used for overcurrent detection and will shut down programming if triggered.
 
 ### Pin Driver Board Operation
 
-Each pin of the chips can be individually controlled, and can be in one of three states: (1) floating, (2) connected to ground, or (3) connected to a pin-specific voltage.
+Each pin of the ICUT (IC under test) can be individually controlled, and can be in one of three states: (1) floating, (2) connected to ground, or (3) connected to a pin-specific voltage.
 Each pin driver contains a DAC, an op-amp, and two MOSFETs to connect the pin to the DAC/op-amp output, or to ground.
 Optionally, the two MOSFETs can be turned off and leave the pin floating/not connected.
 
@@ -87,10 +52,13 @@ This overcurrent flag is routed to the CPU and will trigger an interrupt that wi
 
 UniProg uses the following "main" components (this is subject to change):
 
- * WDC65C816S - "65816" - Main CPU (running at 10&nbsp;MHz)
- * DAC7614U - DAC supporting positive and negative supply rail operation and output
- * OPA454 - High voltage op-amp (100&nbsp;V delta) supporting high current (100&nbsp;mA) output
+- WDC65C816S - "65816" - Main CPU (running at 10&nbsp;MHz)
+- DAC7614U - DAC supporting positive and negative supply rail operation and output
+- OPA454 - High voltage op-amp (100&nbsp;V delta) supporting high current (100&nbsp;mA) output
 
 ## License
 
 UniProg, and UniProg's companion software, upro, are licensed under the [GNU General Public License 3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) or later.
+
+UniProg's KiCad schematics use portions from [arduino-kicad-lib](https://github.com/Alarm-Siren/arduino-kicad-library/tree/307d55d7057d2f4e7d28a63ea696091f076a815f) by [Alarm-Siren](https://github.com/Alarm-Siren).
+arduino-kicad-lib is licensed under the [GNU General Public License 2.1](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html) which is compatible with the GNU GPL 3.0+ used for the project.
