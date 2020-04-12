@@ -52,7 +52,7 @@ This overcurrent flag is routed to the CPU and will trigger an interrupt that wi
 
 UniProg uses the following "main" components (this is subject to change):
 
-- WDC65C816S - "65816" - Main CPU (running at 10&nbsp;MHz)
+- Adafruit Grand Central M4 Express - Main processor
 - DAC7614U - DAC supporting positive and negative supply rail operation and output
 - OPA454 - High voltage op-amp (100&nbsp;V delta) supporting high current (100&nbsp;mA) output
 
