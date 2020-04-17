@@ -21,8 +21,11 @@
  * ============================================================================
  */
 #include "upro.hpp"
-#include "getopt.h"
+//#include "getopt.h"
+#include <cursesw.h>
+
 #include <iostream>
+#include <signal.h>
 #include <string>
 
 enum class chip_option
@@ -35,6 +38,9 @@ enum class chip_option
     erase
 };
 
+auto resizeHandler(int sig) -> void;
+
+auto interactive() -> void;
 void print_license();
 void print_version_info();
 void print_help();
@@ -46,8 +52,10 @@ void update_firmware(std::string filepath);
 
 int main(int argc, char **argv)
 {
-    print_license();
+    interactive();
+    //print_license();
 
+    /*
     bool should_quit = false;
     chip_option chip_option_value = chip_option::none;
     std::string chip_file{""};
@@ -156,10 +164,43 @@ int main(int argc, char **argv)
             std::cout << std::endl;
             return 0;
         }
-    }
+    }*/
 
     std::cout << std::endl;
     return 0;
+}
+
+auto interactive() -> void
+{
+    signal(SIGWINCH, resizeHandler);
+    initscr();
+    cbreak();
+    noecho();
+    keypad(stdscr, true);
+
+    border(0, 0, 0, 0, 0, 0, 0, 0);
+
+    int ch;
+    nodelay(stdscr, true);
+    while (true)
+    {
+        if ((ch = getch()) == ERR)
+            continue;
+        if (ch == KEY_DOWN)
+            break;
+
+        addch(ch);
+        refresh();
+    }
+    endwin();
+}
+
+auto resizeHandler(int sig) -> void
+{
+    int new_h, new_w;
+    getmaxyx(stdscr, new_h, new_w);
+
+    addstr()
 }
 
 void print_license()
@@ -172,6 +213,8 @@ void print_license()
 
 void print_version_info()
 {
+    std::cout << "upro version " UPRO_VERSION_STR "\n";
+    std::cout << std::endl;
 }
 
 void print_help()

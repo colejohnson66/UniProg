@@ -1,5 +1,5 @@
 /* ============================================================================
- * File:   main.cpp
+ * File:   UniProg.hpp
  * Author: Cole Johnson
  * ============================================================================
  * Copyright (c) 2020 Cole Johnson
@@ -20,15 +20,29 @@
  *   UniProg. If not, see <http://www.gnu.org/licenses/>.
  * ============================================================================
  */
+#pragma once
+
 #include <Arduino.h>
 
-void setup()
-{
-  PIN_PA00
-  // put your setup code here, to run once:
-}
+//#include "configure.h"
+#include <cstddef>
+#include <cstdint>
 
-void loop()
-{
-  // put your main code here, to run repeatedly:
-}
+// NOTE: will fail if these types (int8_t...) aren't present
+// NOTE: will fail if these types (i8...) are already defined
+
+typedef int8_t i8;
+typedef int16_t i16;
+typedef int32_t i32;
+typedef int64_t i64;
+typedef intptr_t iptr;
+typedef uint8_t u8;
+typedef uint16_t u16;
+typedef uint32_t u32;
+typedef uint64_t u64;
+typedef uintptr_t uptr;
+
+typedef float f32;
+typedef double f64;
+
+#define UNIPROG_INLINE inline
