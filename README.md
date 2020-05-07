@@ -28,7 +28,7 @@ Each pin of the ICUT (IC under test) can be individually controlled, and can be 
 Each pin driver contains a DAC, an op-amp, and two MOSFETs to connect the pin to the DAC/op-amp output, or to ground.
 Optionally, the two MOSFETs can be turned off and leave the pin floating/not connected.
 
-Each pin driver board contains eight individually addressable pin drivers, two 8-bit latches to control the MOSFET drivers, and 16 MOSFET drivers (one for each MOSFET).
+Each pin driver board contains four individually addressable pin drivers, an 8-bit latches to control the MOSFET drivers, and eight MOSFET drivers (one for each MOSFET).
 
 #### DAC / Op-Amp
 
@@ -39,7 +39,7 @@ The output of the op-amps are then routed to the VPP MOSFET.
 
 #### Latches / MOSFET Drivers
 
-In addition to the eight DAC/op-amp combos, each pin driver board contains two 8-bit latches and 16 MOSFET drivers.
+In addition to the four DAC/op-amp combos, each pin driver board contains an 8-bit latch and eight MOSFET drivers.
 One latch controls the VPP MOSFET drivers, while the other controls the GND MOSFET drivers.
 When the VPP MOSFET is turned on, the voltage from the DAC/op-amp combo will be routed to the pin.
 If the GND MOSFET is turned on instead, the pin on the ICUT (IC under test) will be connected to ground.
